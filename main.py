@@ -32,13 +32,16 @@ def create_truth_table_map(truth_table):
     return truth_table_map
 
 def get_arc_polarity(arc, truth_table_map):
-    literal = re.search(r"\D", arc).group()
+    """
+    (D)irect  - LH pulse from an arc causes a LH at Out
+    (R)everse - LH pulse from an arc causes a HL at Out
+    """
     input = re.sub(r"\D", "1", arc) # replace non digits with '1'
     row_result = truth_table_map.get(input, "Unknown")
     if row_result == "1":
-        polarity = literal # direct
+        polarity = "D" # Direct
     else:
-        polarity = f"!{literal}" # reverse
+        polarity = "R" # Reverse
 
     return polarity
 
